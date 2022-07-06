@@ -17,6 +17,69 @@
 
     Refer to 'inc/ur_macro.xacro' for more information.
   -->
+
+  <!-- The following is added by Dip starting here-->
+
+   <!--world link is added -->
+  <link name="world">
+  </link>
+
+
+  <!--Tool link is added -->
+  <link name="tool">
+    <visual>
+      <geometry>
+         <mesh filename="package://ur_description/meshes/ur5/collision/finaltool.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://ur_description/meshes/ur5/visual/finaltool.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+     <origin rpy="0 0 0" xyz="0 0 0"/>
+  </link>
+  <!--Table link is added -->
+  <link name="table">
+    <origin rpy="-1.5708 0 0" xyz="0 0 0"/>
+    <visual>
+      <geometry>
+         <mesh filename="package://ur_description/meshes/ur5/collision/table.STL" scale="0.001 0.001 0.001" rpy= "-1.5708 0 0"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://ur_description/meshes/ur5/visual/table.dae" scale="0.001 0.001 0.001" origin= "-1.5708 0 0"/>
+      </geometry>
+    </collision>
+     
+  </link>
+  <joint name="world_to_table" type="fixed">
+    <parent link="world"/>
+    <child link="table"/>
+    <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+  </joint>
+  <joint name="table_to_robot" type="fixed">
+    <parent link="table"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
+  </joint>
+
+  <joint name="tool0_to_tool" type="fixed">
+    <parent link="tool0"/>
+    <child link="tool"/>
+    <origin xyz="-0.05 -0.06 -0.01" rpy="0 0 0"/>
+  </joint>
+
+
+
+  <!-- The above is added by Dip ending here-->
+
+
+
+
+
+
   <xacro:include filename="$(find ur_description)/urdf/inc/ur5_macro.xacro"/>
   <xacro:ur5_robot prefix="" />
 </robot>
