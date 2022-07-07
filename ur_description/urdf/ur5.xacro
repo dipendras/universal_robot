@@ -20,8 +20,23 @@
 
   <!-- The following is added by Dip starting here-->
 
-   <!--world link is added -->
-  <link name="world">
+  <link name="world"/>
+  <link name="tooltip"/>
+
+
+  <!--Tablemount link is added -->
+  <link name="tablemount">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <visual>
+      <geometry>
+         <mesh filename="package://ur_description/meshes/ur5/collision/tablemount.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://ur_description/meshes/ur5/visual/tablemount.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>     
   </link>
 
 
@@ -37,41 +52,37 @@
         <mesh filename="package://ur_description/meshes/ur5/visual/finaltool.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
-     <origin rpy="0 0 0" xyz="0 0 0"/>
+     <origin xyz="0 0 0" rpy="0 0 0"/>
   </link>
-  <!--Table link is added -->
-  <link name="table">
-    <origin rpy="-1.5708 0 0" xyz="0 0 0"/>
-    <visual>
-      <geometry>
-         <mesh filename="package://ur_description/meshes/ur5/collision/table.STL" scale="0.001 0.001 0.001" rpy= "-1.5708 0 0"/>
-      </geometry>
-    </visual>
-    <collision>
-      <geometry>
-        <mesh filename="package://ur_description/meshes/ur5/visual/table.dae" scale="0.001 0.001 0.001" origin= "-1.5708 0 0"/>
-      </geometry>
-    </collision>
-     
-  </link>
-  <joint name="world_to_table" type="fixed">
+
+
+
+  <joint name="world_joint" type="fixed">
     <parent link="world"/>
-    <child link="table"/>
-    <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+    <child link="tablemount"/>
+    <origin xyz="0 0 0.305" rpy="0 0 0"/> <!--Verify the height of actual tablemount -->
   </joint>
-  <joint name="table_to_robot" type="fixed">
-    <parent link="table"/>
+
+
+
+  <joint name="tablemount_to_base_link" type="fixed">
+    <parent link="tablemount"/>
     <child link="base_link"/>
-    <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!--Translate and then Rotate from parent to child -->
   </joint>
 
   <joint name="tool0_to_tool" type="fixed">
     <parent link="tool0"/>
     <child link="tool"/>
-    <origin xyz="-0.05 -0.06 -0.01" rpy="0 0 0"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
 
 
+  <joint name="tool_to_tooltip" type="fixed">
+    <parent link="tool"/>
+    <child link="tooltip"/>
+    <origin xyz="0 -0.100 0.108" rpy="1.57 0 0"/> <!-- the length of pen from center is 100 mm-->
+  </joint>
 
   <!-- The above is added by Dip ending here-->
 
