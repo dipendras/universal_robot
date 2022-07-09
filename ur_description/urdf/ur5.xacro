@@ -91,6 +91,7 @@
 
 
 
+
   <xacro:include filename="$(find ur_description)/urdf/inc/ur5_macro.xacro"/>
   <xacro:ur5_robot prefix="" />
 </robot>
