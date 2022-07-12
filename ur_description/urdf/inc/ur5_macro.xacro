@@ -31,6 +31,74 @@
    safety_pos_margin:=0.15
    safety_k_position:=20"
   >
+    <!-- The following is added by Dip starting here-->
+
+  <link name="world"/>
+  <link name="tooltip"/>
+
+
+  <!--Tablemount link is added -->
+  <link name="tablemount">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <visual>
+      <geometry>
+         <mesh filename="package://ur_description/meshes/ur5/collision/tablemount.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://ur_description/meshes/ur5/visual/tablemount.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>     
+  </link>
+
+
+  <!--Tool link is added -->
+  <link name="tool">
+    <visual>
+      <geometry>
+         <mesh filename="package://ur_description/meshes/ur5/collision/finaltool.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://ur_description/meshes/ur5/visual/finaltool.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+     <origin xyz="0 0 0" rpy="0 0 0"/>
+  </link>
+
+
+
+  <joint name="world_joint" type="fixed">
+    <parent link="world"/>
+    <child link="tablemount"/>
+    <origin xyz="0 0 0.305" rpy="0 0 0"/> <!--Verify the height of actual tablemount -->
+  </joint>
+
+
+
+  <joint name="tablemount_to_base_link_joint" type="fixed">
+    <parent link="tablemount"/>
+    <child link="${prefix}base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 ${pi}"/> <!--Translate and then Rotate from parent to child -->
+  </joint>
+
+  <joint name="tool0_to_tool" type="fixed">
+    <parent link="${prefix}tool0"/>
+    <child link="tool"/>
+    <origin xyz="0 0 0" rpy="0 0 ${pi}"/>
+  </joint>
+
+
+  <joint name="tool_to_tooltip" type="fixed">
+    <parent link="tool"/>
+    <child link="tooltip"/>
+    <origin xyz="0 -0.150 0.108" rpy="-1.57 0 0"/> <!-- the length of pen from center is 115 mm-->
+  </joint>
+
+  <!-- The above is added by Dip ending here-->
+
     <xacro:include filename="$(find ur_description)/urdf/inc/ur_macro.xacro"/>
     <xacro:ur_robot
       prefix="${prefix}"
