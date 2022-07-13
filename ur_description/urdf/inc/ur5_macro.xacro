@@ -94,7 +94,7 @@
   <joint name="tool_to_tooltip" type="fixed">
     <parent link="tool"/>
     <child link="tooltip"/>
-    <origin xyz="0 -0.150 0.108" rpy="-1.57 0 0"/> <!-- the length of pen from center is 115 mm-->
+    <origin xyz="0 -0.130 0.108" rpy="-1.57 0 0"/> <!-- the length of pen from center is 130 mm-->
   </joint>
 
   <!-- The above is added by Dip ending here-->
